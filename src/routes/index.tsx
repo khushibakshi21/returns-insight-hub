@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, PackageSearch, Repeat2, TriangleAlert } from "lucide-react";
 import { DashboardShell, PageHeading } from "@/components/dashboard-shell";
 import { SeverityBadge, SummaryBanner } from "@/components/returns-ui";
+import { AgentPanel } from "@/components/agent-panel";
 import { productImages } from "@/lib/product-images";
 import { aiSummary, flaggedProducts, reasonBreakdown, returnRecords } from "@/lib/returns-data";
 
@@ -77,6 +78,10 @@ function OverviewPage() {
 
       <div className="mt-4">
         <SummaryBanner text={aiSummary} />
+      </div>
+
+      <div className="mt-4">
+        <AgentPanel />
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
