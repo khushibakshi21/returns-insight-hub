@@ -68,6 +68,7 @@
   --surface: oklch(0.228 0.014 250);
   --gradient-amber: linear-gradient(135deg, oklch(0.79 0.13 82), oklch(0.72 0.13 72));
   --shadow-card: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 12px 30px -18px oklch(0 0 0 / 70%);
+  --shadow-glow: 0 8px 24px -10px oklch(0.756 0.128 78.5 / 45%);
 }
 
 @layer base {
