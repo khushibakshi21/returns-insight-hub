@@ -2,12 +2,15 @@ import { Link } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   ListOrdered,
+  Menu,
   ScanLine,
   Sparkles,
   TriangleAlert,
   Undo2,
+  X,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+
 
 const navItems = [
   { to: "/", label: "Overview", Icon: LayoutDashboard, exact: true },
@@ -33,13 +36,20 @@ export function AnalyzeButton({ full = false }: { full?: boolean }) {
   );
 }
 
-function NavLinks({ orientation }: { orientation: "vertical" | "horizontal" }) {
+function NavLinks({
+  orientation,
+  onNavigate,
+}: {
+  orientation: "vertical" | "grid";
+  onNavigate?: () => void;
+}) {
   return (
-    <ul className={orientation === "vertical" ? "space-y-1" : "flex gap-1 overflow-x-auto"}>
+    <ul className={orientation === "vertical" ? "space-y-1" : "grid grid-cols-2 gap-2"}>
       {navItems.map(({ to, label, Icon, exact }) => (
-        <li key={to} className={orientation === "horizontal" ? "shrink-0" : undefined}>
+        <li key={to}>
           <Link
             to={to}
+            onClick={onNavigate}
             activeOptions={{ exact }}
             activeProps={{
               className: "bg-elevated text-foreground border-l-primary",
@@ -47,7 +57,7 @@ function NavLinks({ orientation }: { orientation: "vertical" | "horizontal" }) {
             inactiveProps={{
               className: "text-muted-foreground border-l-transparent hover:text-foreground",
             }}
-            className="flex items-center gap-2.5 rounded-md border-l-2 px-3 py-2 text-sm font-medium transition-colors"
+            className="flex items-center gap-2.5 rounded-md border-l-2 px-3 py-2.5 text-sm font-medium transition-colors"
           >
             <Icon className="size-4" />
             {label}
@@ -57,6 +67,7 @@ function NavLinks({ orientation }: { orientation: "vertical" | "horizontal" }) {
     </ul>
   );
 }
+
 
 function Wordmark() {
   return (
@@ -100,11 +111,22 @@ export function PageHeading({
 }
 
 export function DashboardShell({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background lg:flex">
       <aside className="sticky top-0 z-20 border-b border-border bg-surface/90 backdrop-blur lg:h-screen lg:w-[16rem] lg:shrink-0 lg:border-b-0 lg:border-r">
         <div className="flex items-center justify-between gap-4 px-5 py-4 lg:block lg:px-5 lg:py-6">
           <Wordmark />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label="Toggle navigation"
+            className="grid size-9 shrink-0 place-items-center rounded-md border border-border bg-elevated text-foreground transition-colors hover:border-primary/40 lg:hidden"
+          >
+            {open ? <X className="size-4" /> : <Menu className="size-4" />}
+          </button>
           <div className="hidden lg:mt-8 lg:block">
             <NavLinks orientation="vertical" />
           </div>
@@ -115,10 +137,13 @@ export function DashboardShell({ children }: { children: ReactNode }) {
             </p>
           </div>
         </div>
-        <div className="border-t border-border px-3 py-2 lg:hidden">
-          <NavLinks orientation="horizontal" />
-        </div>
+        {open ? (
+          <div className="border-t border-border bg-surface px-4 py-4 lg:hidden">
+            <NavLinks orientation="grid" onNavigate={() => setOpen(false)} />
+          </div>
+        ) : null}
       </aside>
+
 
       <main className="relative min-w-0 flex-1">
         <div className="hairline-grid pointer-events-none absolute inset-x-0 top-0 h-64 opacity-40" />
