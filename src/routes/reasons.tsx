@@ -47,12 +47,13 @@ function ReasonsPage() {
                   {count} · {Math.round((count / total) * 100)}%
                 </span>
               </div>
-              <div className="mt-2 h-3 rounded-full bg-secondary">
+              <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-secondary">
                 <div
-                  className="h-full rounded-full bg-primary"
+                  className="h-full rounded-full bg-gradient-to-r from-primary/70 to-primary transition-all"
                   style={{ width: `${count === 0 ? 1.5 : (count / maxCount) * 100}%` }}
                 />
               </div>
+
             </li>
           ))}
         </ul>
