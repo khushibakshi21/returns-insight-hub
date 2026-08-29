@@ -33,13 +33,20 @@ export function AnalyzeButton({ full = false }: { full?: boolean }) {
   );
 }
 
-function NavLinks({ orientation }: { orientation: "vertical" | "horizontal" }) {
+function NavLinks({
+  orientation,
+  onNavigate,
+}: {
+  orientation: "vertical" | "grid";
+  onNavigate?: () => void;
+}) {
   return (
-    <ul className={orientation === "vertical" ? "space-y-1" : "flex gap-1 overflow-x-auto"}>
+    <ul className={orientation === "vertical" ? "space-y-1" : "grid grid-cols-2 gap-2"}>
       {navItems.map(({ to, label, Icon, exact }) => (
-        <li key={to} className={orientation === "horizontal" ? "shrink-0" : undefined}>
+        <li key={to}>
           <Link
             to={to}
+            onClick={onNavigate}
             activeOptions={{ exact }}
             activeProps={{
               className: "bg-elevated text-foreground border-l-primary",
@@ -47,7 +54,7 @@ function NavLinks({ orientation }: { orientation: "vertical" | "horizontal" }) {
             inactiveProps={{
               className: "text-muted-foreground border-l-transparent hover:text-foreground",
             }}
-            className="flex items-center gap-2.5 rounded-md border-l-2 px-3 py-2 text-sm font-medium transition-colors"
+            className="flex items-center gap-2.5 rounded-md border-l-2 px-3 py-2.5 text-sm font-medium transition-colors"
           >
             <Icon className="size-4" />
             {label}
@@ -57,6 +64,7 @@ function NavLinks({ orientation }: { orientation: "vertical" | "horizontal" }) {
     </ul>
   );
 }
+
 
 function Wordmark() {
   return (
