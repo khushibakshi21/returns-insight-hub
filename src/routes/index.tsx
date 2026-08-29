@@ -2,7 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, PackageSearch, Repeat2, TriangleAlert } from "lucide-react";
 import { DashboardShell, PageHeading } from "@/components/dashboard-shell";
 import { SeverityBadge, SummaryBanner } from "@/components/returns-ui";
+import { productImages } from "@/lib/product-images";
 import { aiSummary, flaggedProducts, reasonBreakdown, returnRecords } from "@/lib/returns-data";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -118,16 +120,27 @@ function OverviewPage() {
           </div>
           <ul className="mt-5 space-y-3">
             {flaggedProducts.slice(0, 3).map((item) => (
-              <li className="rounded-md border border-border bg-surface p-4 transition-colors hover:border-primary/30 hover:bg-elevated" key={item.product}>
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-sm font-semibold text-foreground">{item.product}</h3>
-                  <SeverityBadge severity={item.severity} />
+              <li className="flex gap-3 rounded-md border border-border bg-surface p-3 transition-colors hover:border-primary/30 hover:bg-elevated" key={item.product}>
+                <img
+                  src={productImages[item.product]}
+                  alt={`${item.product} product photo`}
+                  loading="lazy"
+                  width={768}
+                  height={576}
+                  className="size-14 shrink-0 rounded-md border border-border object-cover"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="truncate text-sm font-semibold text-foreground">{item.product}</h3>
+                    <SeverityBadge severity={item.severity} />
+                  </div>
+                  <p className="mt-1.5 flex items-start gap-2 text-sm font-medium text-success">
+                    <ArrowRight className="mt-0.5 size-4 shrink-0" />
+                    {item.action}
+                  </p>
                 </div>
-                <p className="mt-2 flex items-start gap-2 text-sm font-medium text-success">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0" />
-                  {item.action}
-                </p>
               </li>
+
             ))}
           </ul>
         </section>
