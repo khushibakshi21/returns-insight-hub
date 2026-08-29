@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgentRouteImport } from './routes/agent'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ReasonsRouteImport } from './routes/reasons'
 import { Route as ReturnsRouteImport } from './routes/returns'
@@ -17,6 +18,11 @@ import { Route as ReturnsRouteImport } from './routes/returns'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentRoute = AgentRouteImport.update({
+  id: '/agent',
+  path: '/agent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsRoute = ProductsRouteImport.update({
@@ -37,12 +43,14 @@ const ReturnsRoute = ReturnsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agent': typeof AgentRoute
   '/products': typeof ProductsRoute
   '/reasons': typeof ReasonsRoute
   '/returns': typeof ReturnsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agent': typeof AgentRoute
   '/products': typeof ProductsRoute
   '/reasons': typeof ReasonsRoute
   '/returns': typeof ReturnsRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agent': typeof AgentRoute
   '/products': typeof ProductsRoute
   '/reasons': typeof ReasonsRoute
   '/returns': typeof ReturnsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/products' | '/reasons' | '/returns'
+  fullPaths: '/' | '/agent' | '/products' | '/reasons' | '/returns'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/products' | '/reasons' | '/returns'
-  id: '__root__' | '/' | '/products' | '/reasons' | '/returns'
+  to: '/' | '/agent' | '/products' | '/reasons' | '/returns'
+  id: '__root__' | '/' | '/agent' | '/products' | '/reasons' | '/returns'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgentRoute: typeof AgentRoute
   ProductsRoute: typeof ProductsRoute
   ReasonsRoute: typeof ReasonsRoute
   ReturnsRoute: typeof ReturnsRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agent': {
+      id: '/agent'
+      path: '/agent'
+      fullPath: '/agent'
+      preLoaderRoute: typeof AgentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgentRoute: AgentRoute,
   ProductsRoute: ProductsRoute,
   ReasonsRoute: ReasonsRoute,
   ReturnsRoute: ReturnsRoute,
