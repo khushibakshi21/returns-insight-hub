@@ -55,18 +55,23 @@ function OverviewPage() {
 
       <section className="grid gap-4 sm:grid-cols-3">
         {kpis.map(({ label, value, note, Icon }) => (
-          <div key={label} className="panel p-5">
+          <div
+            key={label}
+            className="panel group relative overflow-hidden p-5 transition-colors hover:border-primary/30"
+          >
+            <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-60" />
             <div className="flex items-start justify-between">
-              <p className="text-sm text-muted-foreground">{label}</p>
+              <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</p>
               <Icon className="size-4 text-primary" />
             </div>
-            <p className="mt-5 font-display text-[2.5rem] leading-none font-semibold text-foreground">
-              {value}
+            <p className="gold-text mt-5 font-display text-[2.6rem] leading-none font-semibold tabular-nums">
+              {String(value).padStart(2, "0")}
             </p>
             <p className="mt-2 text-xs text-muted-foreground">{note}</p>
           </div>
         ))}
       </section>
+
 
       <div className="mt-4">
         <SummaryBanner text={aiSummary} />
@@ -113,7 +118,7 @@ function OverviewPage() {
           </div>
           <ul className="mt-5 space-y-3">
             {flaggedProducts.slice(0, 3).map((item) => (
-              <li key={item.product} className="rounded-xl border border-border bg-surface p-4">
+              <li className="rounded-md border border-border bg-surface p-4 transition-colors hover:border-primary/30 hover:bg-elevated" key={item.product}>
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-sm font-semibold text-foreground">{item.product}</h3>
                   <SeverityBadge severity={item.severity} />
