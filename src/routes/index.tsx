@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
-  component: ReturnsDashboard;
+  component: ReturnsDashboard,
 });
 
 const severityStyles: Record<Severity, string> = {
