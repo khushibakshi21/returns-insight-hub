@@ -2,12 +2,15 @@ import { Link } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   ListOrdered,
+  Menu,
   ScanLine,
   Sparkles,
   TriangleAlert,
   Undo2,
+  X,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+
 
 const navItems = [
   { to: "/", label: "Overview", Icon: LayoutDashboard, exact: true },
