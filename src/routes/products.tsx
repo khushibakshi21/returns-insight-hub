@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { DashboardShell, PageHeading } from "@/components/dashboard-shell";
 import { SeverityBadge } from "@/components/returns-ui";
+import { productImages } from "@/lib/product-images";
 import { flaggedProducts } from "@/lib/returns-data";
+
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -58,11 +60,13 @@ function ProductsPage() {
             <p className="text-xs text-muted-foreground">{item.returns} related returns</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.issue}</p>
 
-            <p className="mt-5 flex items-start gap-2 border-t border-border pt-4 text-sm font-medium text-success">
-              <ArrowRight className="mt-0.5 size-4 shrink-0" />
-              {item.action}
-            </p>
+              <p className="mt-auto flex items-start gap-2 border-t border-border pt-4 text-sm font-medium text-success">
+                <ArrowRight className="mt-0.5 size-4 shrink-0" />
+                {item.action}
+              </p>
+            </div>
           </article>
+
         ))}
       </section>
     </DashboardShell>
