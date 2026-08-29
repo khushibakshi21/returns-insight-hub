@@ -1,64 +1,67 @@
-# Returns Insight Hub
+# Boomerang — Returns Intelligence Agent
 
-Build a "Returns Intelligence Agent" dashboard for an e-commerce ops team.
+An AI-powered returns intelligence dashboard for e-commerce operations teams. Built during a Buildathon with Lovable, TanStack Start, and the Lovable AI Gateway.
 
-Dark theme: background #12181F, cards #1A222B, accent amber #E2A33D, 
+## What it does
 
-alert red #C1443B, sage green #6FA287, text off-white #EDEAE2.
+Boomerang turns raw return comments into actionable ops intelligence. Instead of scrolling through tickets, teams get:
 
-Layout:
+- **AI-generated verdicts** that summarize root cause, customer mood, and preventable issues.
+- **Prioritized action queue** with impact and confidence scores.
+- **Flagged product cards** that surface recurring defects, sizing issues, and supplier problems.
+- **A grounded Q&A agent** that answers plain-English questions using the actual return dataset.
+- **Multi-page dashboard** for overview, reasons, products, and the full return log.
 
-- Header with title "Why customers are sending things back" and an 
+## Demo
 
-  "Analyze returns" button (amber, top right)
+[Live preview](https://id-preview--69f136cc-2050-4ecd-902a-cfba35f24cb9.lovable.app)
 
-- 3 KPI cards in a row: Returns analyzed, Products with recurring issues, 
+## Key features
 
-  High-severity cases
+- AI analysis of 20+ realistic return records
+- Severity classification and watch-out alerts
+- Return reason breakdown with visual bar charts
+- Product image cards with recommended fixes
+- Searchable / sortable return log table
+- "Ask the agent" console for grounded Q&A
 
-- A one-line AI-generated summary banner
+## Tech stack
 
-- Two columns: left is a bar chart of return reasons (Size/Fit, Defective, 
+- [Lovable](https://lovable.dev) — visual builder + deployment
+- [TanStack Start](https://tanstack.com/start) — full-stack React framework
+- [Tailwind CSS](https://tailwindcss.com) — styling
+- Lovable Cloud — backend / auth
+- Lovable AI Gateway — Google Gemini-powered analysis
 
-  Not as described, Late delivery, Changed mind, Quality issue, Wrong item, 
+## Project structure
 
-  Other), right is a list of "flagged product" cards, each showing the 
+```
+src/
+  routes/           # Pages: Overview, Reasons, Products, Returns, Agent
+  components/       # Dashboard shell, agent panel, shared UI
+  lib/
+    ai.functions.ts # Server functions for AI analysis and Q&A
+    returns-data.ts # Sample return dataset
+    product-images.ts # Product image mapping
+  styles.css        # Custom Plum & Lilac design tokens
+```
 
-  product name, the issue, and a recommended action with an arrow
-
-- Below that, a table of all individual returns: order id, product, 
-
-  comment, category, severity badge
-
-Start with 20 sample return records across 6-7 fictional products 
-
-(e.g. a coat, a speaker, a lamp, running shoes, a mug set) with realistic 
-
-customer comments about sizing, defects, wrong color, late delivery, 
-
-changed mind.
-
-Leave the "Analyze returns" button wired to a placeholder function for now 
-
-— I'll connect it to a backend function next.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/69f136cc-2050-4ecd-902a-cfba35f24cb9).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Running locally
 
 ```sh
-git clone <this-repository-url>
+git clone <your-github-repo-url>
 cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
 ```
+
+The app runs at `http://localhost:8080`.
+
+## How the AI works
+
+- `analyzeReturns` sends the return dataset to the Lovable AI Gateway and asks for a structured verdict, themes, and action queue.
+- `askAgent` grounds each user question in the return records so answers cite real order IDs and comments.
+
+## Built by
+
+[Khushi Bakshi](https://github.com/your-username)
