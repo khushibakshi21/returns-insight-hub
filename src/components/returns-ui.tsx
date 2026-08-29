@@ -10,7 +10,7 @@ const severityStyles: Record<Severity, string> = {
 export function SeverityBadge({ severity }: { severity: Severity }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[0.7rem] font-medium capitalize ${severityStyles[severity]}`}
+      className={`inline-flex items-center rounded-sm border px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider ${severityStyles[severity]}`}
     >
       {severity}
     </span>
@@ -19,9 +19,15 @@ export function SeverityBadge({ severity }: { severity: Severity }) {
 
 export function SummaryBanner({ text }: { text: string }) {
   return (
-    <section className="flex items-start gap-3 rounded-2xl border border-primary/30 bg-primary/10 p-4">
-      <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
-      <p className="text-sm leading-relaxed text-foreground">{text}</p>
+    <section className="relative overflow-hidden rounded-lg border border-primary/25 bg-primary/[0.07] p-5">
+      <span className="absolute inset-y-0 left-0 w-[3px] bg-primary" />
+      <div className="flex items-start gap-3 pl-2">
+        <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
+        <div>
+          <p className="rule-label">Agent summary</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-foreground">{text}</p>
+        </div>
+      </div>
     </section>
   );
 }
