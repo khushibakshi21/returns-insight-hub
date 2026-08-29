@@ -3,6 +3,8 @@ import {
   LayoutDashboard,
   ListOrdered,
   Menu,
+  MessagesSquare,
+  Loader2,
   ScanLine,
   Sparkles,
   TriangleAlert,
@@ -10,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { useAnalysis } from "@/lib/analysis-context";
 
 
 const navItems = [
@@ -17,21 +20,21 @@ const navItems = [
   { to: "/reasons", label: "Reasons", Icon: ScanLine, exact: false },
   { to: "/products", label: "Flagged", Icon: TriangleAlert, exact: false },
   { to: "/returns", label: "Return log", Icon: ListOrdered, exact: false },
+  { to: "/agent", label: "Ask the agent", Icon: MessagesSquare, exact: false },
 ] as const;
 
-export function analyzeReturns() {
-  // Placeholder — will be wired to the backend analysis function.
-  console.log("Analyze returns: backend function not connected yet.");
-}
-
 export function AnalyzeButton({ full = false }: { full?: boolean }) {
+  const { run, status } = useAnalysis();
+  const running = status === "running";
+
   return (
     <button
-      onClick={analyzeReturns}
-      className={`inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${full ? "w-full" : ""}`}
+      onClick={run}
+      disabled={running}
+      className={`inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${full ? "w-full" : ""}`}
     >
-      <Sparkles className="size-4" />
-      Analyze returns
+      {running ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
+      {running ? "Analyzing…" : "Analyze returns"}
     </button>
   );
 }
