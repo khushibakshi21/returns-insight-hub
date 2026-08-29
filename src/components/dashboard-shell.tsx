@@ -86,7 +86,7 @@ export function PageHeading({
   lede?: string;
 }) {
   return (
-    <header className="border-b border-border pb-7">
+    <header className="mb-7 border-b border-border pb-7">
       <p className="rule-label">{eyebrow}</p>
       <h1 className="mt-3 max-w-2xl text-[1.9rem] font-semibold leading-[1.1] text-foreground md:text-[2.6rem]">
         {title}
@@ -95,6 +95,7 @@ export function PageHeading({
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">{lede}</p>
       ) : null}
     </header>
+
   );
 }
 

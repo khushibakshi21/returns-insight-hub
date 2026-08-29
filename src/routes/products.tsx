@@ -34,7 +34,12 @@ function ProductsPage() {
 
       <section className="grid gap-4 md:grid-cols-2">
         {flaggedProducts.map((item) => (
-          <article key={item.product} className="panel flex flex-col p-5">
+          <article
+            key={item.product}
+            className="panel group relative flex flex-col overflow-hidden p-5 transition-colors hover:border-primary/30"
+          >
+            <span className="absolute inset-y-0 left-0 w-[2px] bg-primary/0 transition-colors group-hover:bg-primary/60" />
+
             <div className="flex items-start justify-between gap-3">
               <h2 className="font-display text-lg font-semibold text-foreground">{item.product}</h2>
               <SeverityBadge severity={item.severity} />
